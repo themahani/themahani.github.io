@@ -1,21 +1,178 @@
 # hugo.toml
 
-baseURL = "https://themahani.github.io/" 
+# --- Main Site Configuration ---
+# These are standard Hugo settings.
+# Docs: https://gohugo.io/getting-started/configuration/
+
+baseURL = "https://themahani.github.io/" # REQUIRED: Your site's root URL.
 languageCode = "en-us"
-title = "Ali Mahani -- Personal Website"
+title = "Ali Mahani" # The main title of your site, shows in the browser tab.
 theme = "congo"
 
-# Main menu navigation
+# Number of posts to show on a list page (like /posts) before paginating.
+pagination.pagerSize = 10
+# The length of the summary that Hugo automatically generates for each post.
+summaryLength = 0 # Set to 0 to use the <!--more--> summary divider, which is more precise.
+
+# Enable a robots.txt file to be generated. Good for SEO.
+enableRobotsTXT = true
+
+
+# --- Menu Configuration ---
+# This controls the links in your site's header navigation.
+# The "weight" determines the order.
+# Docs: https://gohugo.io/content-management/menus/
+
 [menu]
   [[menu.main]]
-    name = "Posts"
-    pageRef = "posts"
+    name = "Blog"
+    pageRef = "posts" # This links to the /posts/ section.
     weight = 10
   [[menu.main]]
     name = "About"
-    pageRef = "about"
+    pageRef = "about" # This links to the /about.md page.
     weight = 20
   [[menu.main]]
     name = "Tags"
-    pageRef = "tags"
+    pageRef = "tags" # This links to the tags taxonomy page.
     weight = 30
+  [[menu.main]]
+    # This is an example of an external link.
+    name = "GitHub"
+    url = "https://github.com/themahani" # Use 'url' for external links.
+    weight = 40
+
+
+# --- Congo Theme Parameters ---
+# This is where you customize the Congo theme itself.
+# All theme-specific settings go inside the [params] block.
+# Full Docs: https://jpanther.github.io/congo/docs/configuration/
+
+[params]
+  # --- Appearance and Layout ---
+  
+  # Color scheme for the site.
+  # Options: "congo" (default), "avocado", "fire", "ocean", "slate", "zen"
+  colorScheme = "sapphire"
+  defaultThemeColor = "#000000"
+  defaultAppearance = "dark"
+  autoSwitchAppearance = true
+  
+  # Dark mode behavior.
+  # Options: "auto" (follows OS preference), "light", "dark"
+  darkMode = "dark"
+  description = "Where knowledge lies dormant in the cyberworld."
+  
+  # The layout for the homepage.
+  # Options:
+  #   "page"       - Renders a single page from content/_index.md.
+  #   "profile"    - Renders the author profile information (defined below).
+  #   "list"       - Renders a list of recent posts.
+  homepage.layout = "page"
+
+  # Whether to show a list of recent posts on the homepage.
+  # Used with the "profile" or "page" layouts.
+  homepage.showRecent = true
+  homepage.recentLimit = 5
+  
+  # Number of menu items to show in the header before collapsing into a "..." button.
+  showMenuItems = 3
+  
+  # Path to your site's logo, relative to the 'static' directory.
+  # For example, if your logo is at 'static/images/logo.svg', the value would be '/images/logo.svg'.
+  # logo = "/images/logo.svg"
+
+  # --- Article (Post) Settings ---
+  
+  article.showDate = true          # Show the publication date.
+  article.showDateUpdated = true   # Show the last updated date.
+  article.showAuthor = true        # Show the author's name.
+  article.showBreadcrumbs = true   # Show breadcrumbs like: Home > Posts > My Post
+  article.showReadingTime = true   # Show the estimated reading time.
+  article.showWordCount = true     # Show the word count.
+  article.showTableOfContents = true # Show a table of contents for articles.
+
+  # Enable social sharing links at the bottom of articles.
+  # A list of supported services can be found in the Congo docs.
+  article.sharingLinks = ["twitter", "linkedin", "email", "facebook"]
+
+  # --- Author Information ---
+  # This is used for the "profile" homepage layout and the author box on articles.
+  
+  [params.author]
+    name = "Ali Mahani"
+    image = "images/author.jpg" # Path to your profile picture, relative to the 'static' directory.
+    headline = "Developer, Scientist, Learner"
+    bio = "Ali is a physicist and developer. He loves all things open source and loves automation."
+    
+    # A list of social links for the author.
+    links = [
+      { email = "mailto:ali.a.mahani@zoho.com" },
+      { linkedin = "https://linkedin.com/in/ali-a-mahani" },
+      { x-twitter = "https://twitter.com/themahani" },
+      { github = "https://github.com/themahani" },
+    ]
+
+  # --- Footer Content ---
+  
+  [params.footer]
+    showCopyright = true
+    showThemeAttribution = true # It's nice to keep this to credit the theme author!
+    showAppearanceSwitcher = true
+    showScrollToTop = true
+
+  # --- Analytics and Site Verification ---
+  
+  # To enable a service, uncomment the line and add your ID.
+  # Fathom Analytics is a great privacy-focused option.
+  # fathomAnalytics = "YOUR-FATHOM-ID"
+  
+  # Plausible Analytics is another great privacy-focused option.
+  # plausibleAnalytics = "your-domain.com"
+  
+  # Google Analytics (GA4).
+  # googleAnalytics = "G-MEASUREMENT_ID"
+  
+  # Site verification codes for search engines.
+  # verification.google = "YOUR_GOOGLE_VERIFICATION_CODE"
+  # verification.bing = "YOUR_BING_VERIFICATION_CODE"
+
+  # --- Other Features ---
+  
+  # Enable the built-in site search.
+  # Requires the file `layouts/partials/search-index.json` from the theme.
+  # This should work out of the box with the provided `deploy.yml`.
+  [params.search]
+    enable = true
+    
+  # Enable code syntax highlighting with PrismJS.
+  [params.prism]
+    enable = true
+
+
+# --- Hugo's Markup Configuration ---
+# Controls how Markdown is rendered.
+
+[markup]
+  # Configure Goldmark, Hugo's default Markdown renderer.
+  [markup.goldmark.renderer]
+    # Set to 'true' if you need to use raw HTML in your Markdown files.
+    # Be aware of the security implications if you allow others to contribute content.
+    unsafe = true
+
+  # Configure the table of contents.
+  [markup.tableOfContents]
+    startLevel = 2 # The heading level to start the TOC from (e.g., <h2>).
+    endLevel = 4   # The heading level to end the TOC at (e.g., <h4>).
+    ordered = false
+
+  # This is required for Congo's PrismJS syntax highlighting.
+  [markup.highlight]
+    noClasses = false
+
+# --- Hugo's Taxonomy Configuration ---
+# Defines the different ways you can categorize your content.
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"

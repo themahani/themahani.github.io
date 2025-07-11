@@ -68,7 +68,7 @@ enableRobotsTXT = true
   #   "page"       - Renders a single page from content/_index.md.
   #   "profile"    - Renders the author profile information (defined below).
   #   "list"       - Renders a list of recent posts.
-  homepage.layout = "page"
+  homepage.layout = "profile"
 
   # Whether to show a list of recent posts on the homepage.
   # Used with the "profile" or "page" layouts.

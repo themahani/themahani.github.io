@@ -38,9 +38,11 @@ enableRobotsTXT = true
     weight = 30
   [[menu.main]]
     # This is an example of an external link.
-    name = "GitHub"
-    url = "https://github.com/themahani" # Use 'url' for external links.
+    name = "Wiki"
+    url = "https://themahani.github.io/wiki/" # Use 'url' for external links.
     weight = 40
+    [menu.main.params]
+      target = "_blank"
 
 
 # --- Congo Theme Parameters ---

@@ -34,7 +34,7 @@ jobs:
 
       # Step 4: Deploy the 'public' directory to the 'gh-pages' branch
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           # The GITHUB_TOKEN is automatically provided by GitHub
           github_token: ${{ secrets.GITHUB_TOKEN }}

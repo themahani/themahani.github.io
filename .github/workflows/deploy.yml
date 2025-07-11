@@ -1,77 +1,44 @@
 # .github/workflows/deploy.yml
 
-name: Deploy Hugo site to Pages
+name: Build and Deploy Hugo Site to gh-pages
 
 on:
   # Runs on pushes targeting the default branch
   push:
     branches:
-      - main # or master, depending on your default branch
-
+      - main
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
-# Default to bash
-defaults:
-  run:
-    shell: bash
-
 jobs:
-  # Build job
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Install Hugo CLI
-        run: |
-          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v0.125.7/hugo_extended_0.125.7_linux-amd64.deb \
-          && sudo dpkg -i ${{ runner.temp }}/hugo.deb
+      # Step 1: Check out the 'main' branch
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          submodules: recursive # Fetch Hugo themes (and other submodules)
+          submodules: recursive # Fetch Hugo themes
           fetch-depth: 0 # Fetch all history for .GitInfo and .Lastmod
 
-      - name: Setup Pages
-        id: pages
-        uses: actions/configure-pages@v5
+      # Step 2: Set up Hugo
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
         with:
-          enablement: true
+          hugo-version: "latest"
+          extended: true # Congo theme requires the extended version
 
-      - name: Build with Hugo
-        env:
-          # For maximum backward compatibility with Hugo modules
-          HUGO_ENVIRONMENT: production
-          HUGO_ENV: production
-        run: |
-          hugo \
-            --gc \
-            --baseURL "${{ steps.pages.outputs.base_url }}/"
+      # Step 3: Build the site
+      - name: Build
+        run: hugo --minify
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      # Step 4: Deploy the 'public' directory to the 'gh-pages' branch
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          path: ./public
-
-  # Deployment job
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          # The GITHUB_TOKEN is automatically provided by GitHub
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # The branch to deploy to
+          publish_branch: gh-pages
+          # The directory that contains the built site
+          publish_dir: ./public

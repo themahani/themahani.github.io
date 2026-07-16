@@ -1,0 +1,17 @@
+services:
+  jekyll:
+    image: jekyll-site:latest
+    build:
+      context: .
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/_site
+      - bundle_cache:/usr/local/bundle   # gem cache, persists across rebuilds
+    ports:
+      - "4000:4000"
+    command: bundle exec jekyll serve --host 0.0.0.0 --watch
+    stdin_open: true
+    tty: true
+
+volumes:
+  bundle_cache:

@@ -1,0 +1,5 @@
+# .prettierignore
+_posts/**/*.md
+_drafts/**/*.md
+_bibliography/**
+_tabs/**/*.md

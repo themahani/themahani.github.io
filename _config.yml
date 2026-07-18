@@ -235,3 +235,14 @@ jekyll-archives:
   permalinks:
     tag: /tags/:name/
     category: /categories/:name/
+
+plugins:
+  - 'jekyll/scholar'
+
+scholar:
+  style: apa
+  locale: en
+  source: ./_bibliography
+  bibliography: refs.bib
+  bibliography_template: "{{reference}}"
+

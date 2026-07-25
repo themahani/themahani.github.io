@@ -1,6 +1,6 @@
 ---
 title: Weird order of arithmetics in q/kdb+
-tags: rant, fun, programming, q/kdb+
+tags: rant fun programming q/kdb+
 categories: ['short posts']
 ---
 

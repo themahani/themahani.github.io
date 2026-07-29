@@ -35,13 +35,13 @@ sum a[0]:b
 // 26 38
 ```
 which is the first row of the result of the matrix multiplication $$A \times B$$. See where this is going?
-Now we just need to repeat this for each row in `a`. We can use left-fold to achieve this, but we 
+Now we just need to repeat this for each row in `a`. We can use "each-left" to achieve this, but we 
 need to define this row-times-matrix operation first.
 ```q
 row_mult:{[row;matrix] sum row*matrix}
 ```
 
-Now we can use left-fold as
+Now we can use each-left as
 ```q
 a row_mult\: b
 // shows:

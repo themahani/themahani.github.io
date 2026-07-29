@@ -238,6 +238,7 @@ jekyll-archives:
 
 plugins:
   - 'jekyll/scholar'
+  - 'jemoji'
 
 scholar:
   style: apa
